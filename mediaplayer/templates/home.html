@@ -1,0 +1,40 @@
+{% extends "mm.html" %}
+{% load static %}
+{% block card %}
+<section style="z-index: 9;" class="h-100 gradient-custom-2">
+  <div class="container py-2 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-12 col-xs-4">
+        <div class="row row-cols-2 row-cols-md-3 g-4">
+          {% for movie in movies %}
+          <div class="col">
+           
+              <div class="mz" style="display:none; margin: auto;z-index: 999;" ><a href="{% url 'token' %}"> <img src="https://img.icons8.com/3d-fluency/94/null/gift.png"/>click </a> </div>
+
+              <div style="border-radius:5px; box-shadow: 5px 5px 5px; background-color: rgba(246, 246, 246, 0.349);" class="card h-100 mt-2">
+                <img style="height: 200px; width: 100%; border-radius: 10px; border: 4px;"
+                class="animate__animated animate__zoomIn" src="{{ movie.thumbnail.url }}" class="card-body" alt="Skyscrapers" />
+                <div class="card-body">
+                  <h5 class="card-title">{{movie.title}}</h5>
+                  <p style="color: rgb(147, 15, 15);" class="card-text">
+                    <a  href="{{movie.description | truncatewords:'20'}}"  ><button id="zzi" type="button" onclick="window.location.href='{% url 'token' %}' "class="btn btn-danger"> WATCH-Download</button></a>
+                  </p> 
+                </div>
+               
+                <div class="card-footer">
+                  
+                <!-- <small class="text-muted">{{movie.uploaded_at}}</small> -->
+                </div>
+              </div>
+        
+          </div>
+        
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% endblock card %}

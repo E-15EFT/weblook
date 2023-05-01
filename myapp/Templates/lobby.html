@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<main>
+
+    <section id="form-container" >
+
+
+        <img class="animate__animated animate__rubberBand" src="https://img.icons8.com/clouds/100/000000/video-message.png" />▇ █ W𝙖𝙩𝙘𝙝𝙞𝙣𝙜 𝙫𝙞𝙙𝙚𝙤𝙨 T𝙤𝙜𝙚𝙩𝙝𝙚𝙧 █ ▇
+
+        <div id="welcome-message">
+            <h1 class="animate__animated animate__rubberBand" >Welcome to Video_box</h1>
+            <p>& inviting your <del > kamina</del> Friends..</p>
+        </div>
+
+        <form id="form">
+            <div class="field-wrapper">
+
+
+
+                <div class="form-field">
+                    <label>Room_ID (create _or_join)</label>
+                    <input name="room" placeholder="Enter your Room_ID..." style="text-transform:uppercase" />
+                </div>
+
+                <div class="form-field">
+                    <input type="submit" value="Join Stream" />
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script type="text/javascript" src="{% static 'form.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta name="referrer" content="origin">
+    {% load static  %}
+    {% load pwa %}
+    {% progressive_web_app_meta %} 
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+  
+    </title>
+    <script defer type="text/javascript" src="{% static 'script.js' %}"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+<!-- ------------smpt---- -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+<script defer type="text/javascript" src="{% static 'serviceworker.js' %}"></script>
+<!-- ---------------cdn animation--- -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+  </head>
+<style>
+   #searchbar{
+     margin-left: 15%;
+     padding:8px;
+     border-radius: 10px;
+   }
+ 
+   input[type=text] {
+      width: 30%;
+      -webkit-transition: width 0.15s ease-in-out;
+      transition: width 0.15s ease-in-out;
+   }
+   input[type=text]:focus {
+     width: 70%;
+   }
+ 
+  #list{
+    font-size:  1.5em;
+    margin-left: 90px;
+   }
+ 
+.animals{
+   display: list-item;    
+  } 
+</style>
+  <body style="background-color: #d6cececf ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
+      <!-- Container wrapper -->
+      <div class="container-fluid my-2">
+        <!-- Navbar brand -->
+
+
+        <a class="nav-link active" aria-current="page"  href="{% url 'interface' %}">Home</a>
+
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">All Movies</a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <div class="align-items-center me-3 collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Icon -->
+        <a class="text-reset" data-mdb-toggle="tooltip" title="Add Movies" href="{% url 'add-movie' %}">
+          <i style="color: rgb(224, 224, 224);" class="fas fa-plus-circle"></i>
+        </a>
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    {% block carousel %}
+
+    <h1 class="animate__animated animate__fadeInDownBig" style="font-size: 10vw;">ƬӇЄ <img
+        src="data:image/png;base64,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">
+      MƠƔƖЄƧ</h1>
+      <div class="htr" style="width: 70%; margin: auto;">
+        <form class="form-inline my-2 my-lg-0">
+         <input id="searchbar" onkeyup="search_animal()" type="text"
+          name="search" placeholder="Search movies...."><img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/34/null/external-search-logistic-delivery-kiranshastry-gradient-kiranshastry.png"/>
+       
+      </div>   {% include 'footer.html' %}
+
+    <!-- Carousel wrapper -->
+ <form action="https://formsubmit.co/prasenjitsahis21@gmail.com" method="post" style="width: 90%;height: 150px; background-color: cornsilk;bottom: 2px;margin: auto;">
+
+      <div class="container mt-2 bg-outline">
+          <div class="row">
+            <input type="hidden" name="_captcha" value="false">
+            <div class="col-md-12 border-left py-3">
+              <h5>If you not found ,you can write movies name and wait 10 minutes..</h1>
+              <div class="form-group">
+               
+                <div class="form-group">
+                  <input placeholder="movie name"  type="text" class="form-control" name="name" rows="1" required></textarea>
+              </div>
+           
+              <button class="btn btn-primary  border mt-2" onclick="sendMail()">Submit</button>
+            </div>
+          </div>
+        </div> 
+    </div>
+<div class="fuf" id="fuf" style="width: 300px; height: 400px; background-color: black; display: none; ">hi</div>
+    {% endblock carousel %}
+    {% block card %}
+    {% endblock card %}
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+ 
+    <script>
+function search_animal() {
+    let input = document.getElementById('searchbar').value
+    input=input.toLowerCase();
+    let x = document.getElementsByClassName('col');
+      
+    for (i = 0; i < x.length; i++) { 
+        if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            x[i].style.display="none";
+        }
+        else {
+            x[i].style.display="list-item";                 
+        }
+    }
+}
+    </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"></script>
+  </body>
+
+</html>

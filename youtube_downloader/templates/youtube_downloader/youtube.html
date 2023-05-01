@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container " style="z-index: -1; width: 70%; margin: auto; ">
+    <img class="animate__animated animate__tada"
+        src="https://img.icons8.com/external-justicon-flat-justicon/64/null/external-youtube-social-media-justicon-flat-justicon.png" />
+    <h3 class="animate__animated animate__bounceInDown"> 𝕪𝕠𝕦 𝕥𝕦𝕓𝕖</h3>
+    <p class="animate__animated animate__bounceInDown" style="color: rgb(234, 165, 165);">you can download any youTube
+        Video! just copy the link and past here </p>
+    <div class="row">
+        <div class="offset-md-1"></div>
+        <div class="col-12 col-md-10 px-3">
+            <form action="{% url 'youtube_index' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="{{form.link.id_for_label}}">{{form.link.label}}</span>
+                    </div>
+                    {{form.link}}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-danger">Go</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="offset-md-1"></div>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class='bg-{{message.tags}} text-center p-4 mt-5 border rounded sadow-lg' {% endif %}>
+        <p class="h3">{{message}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <!-- download page only -->
+    {% if download %}
+    <div class="row mt-5 shadow-lg border rounded">
+        <div class="col-12 col-md-6 py-3">
+            <img src="{{tumbnail_url}}" class="img-thumbnail shadow" alt="tumbnail image"><br>
+            <p class="p-2 mt-2 text-white shadow border rounded" style="font-size: 10vm;">Title: {{title}}</p>
+            <div class="collapse" id="desc">
+                <div class="card card-body shadow">
+                    {{desc}}
+                </div>
+            </div>
+            <div class="embed-responsive embed-responsive-16by9 border shadow my-2">
+                <iframe class="embed-responsive-item" src="{{embed_link}}"></iframe>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 pt-3">
+            <table class="table table-hover text-white text-center table-striped border shadow">
+                <thead style="background-color: #904f33;">
+                    <tr>
+                        <th scope="col">Quality</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if videos %}
+                    {% for video in videos %}
+                    <tr>
+                        <th>{{video.resolution}}</th>
+                        <td>{{video.mime_type}}</td>
+                        <td><a href="{% url 'youtube_downloads' id video.itag %}" type="button"
+                                class="btn btn-sm btn-outlines" download>
+                                <div class="Click-here" onclick="hideButton(this)"> Download
+                            </a>
+        </div>download</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        {% if audios %}
+        {% for audio in audios %}
+        <tr>
+            <th>{{audio.resolution}}</th>
+            <td>{{audio.mime_type}}</td>
+            <td><a href="{% url 'youtube_downloads' id audio.itag %}" type="button" class="btn btn-sm btn-outline"
+                    download>
+                    <div class="Click-here" onclick="hideButton(this)"> Download
+                </a>
+    </div>download</td>
+
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+    </table>
+</div>
+</div>
+{% endif %}
+
+</div>
+{% endblock content %}
